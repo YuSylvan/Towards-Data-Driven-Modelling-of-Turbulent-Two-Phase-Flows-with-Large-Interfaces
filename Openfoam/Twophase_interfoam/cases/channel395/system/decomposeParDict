@@ -1,0 +1,16 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    note        "mesh decomposition control dictionary";
+    object      decomposeParDict;
+}
+
+numberOfSubdomains  8;
+
+method          simple;
+
+simpleCoeffs
+{
+    n           (4 2 1);
+}
