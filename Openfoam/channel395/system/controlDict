@@ -1,0 +1,125 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+
+application     pimpleFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         100;
+
+deltaT          0.01;
+
+writeControl    adjustableRunTime;
+
+writeInterval   10;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.4;
+
+libs
+(
+    "libPIMLfieldFunctionObjects.so"
+);
+
+functions
+{
+    q1
+    {
+        type            q1;
+        writeControl    writeTime;
+    }
+
+    q2
+    {
+        type            q2;
+        writeControl    writeTime;
+    }
+
+    q3
+    {
+        type            q3;
+        writeControl    writeTime;
+    }
+
+    q4
+    {
+        type            q4;
+        writeControl    writeTime;
+    }
+
+    q5
+    {
+        type            q5;
+        writeControl    writeTime;
+    }
+
+    q6
+    {
+        type            q6;
+        writeControl    writeTime;
+    }
+
+    q7
+    {
+        type            q7;
+        writeControl    writeTime;
+    }
+
+    q8
+    {
+        type            q8;
+        writeControl    writeTime;
+    }
+
+    q9
+    {
+        type            q9;
+        writeControl    writeTime;
+    }
+
+    q10
+    {
+        type            q10;
+        writeControl    writeTime;
+    }
+
+    R
+    {
+        type            turbulenceFields;
+        writeControl    writeTime;
+        fields          (R);
+    }
+
+    #includeFunc graphCell
+    (
+        funcName=graph,
+        start=(2 0 0),
+        end=(2 2 0),
+        fields=(q1 q2 q3 q5 q4 q6 q7 q8 q9 q10 U p k epsilon R)
+    )
+}
