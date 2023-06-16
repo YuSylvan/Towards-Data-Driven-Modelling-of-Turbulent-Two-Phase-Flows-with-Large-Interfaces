@@ -1,0 +1,265 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     interFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1000;
+
+deltaT          0.0001;
+
+writeControl    adjustableRunTime;
+
+writeInterval   100;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+adjustTimeStep  on;
+
+maxCo           1;
+maxAlphaCo      1;
+
+maxDeltaT       1;
+
+
+// ************************************************************************* //
+
+libs
+(
+"libturbulenceDamping.so"
+);
+
+
+
+functions
+
+{
+
+  yplus
+  {
+    type yPlus;
+    libs ("libfieldFunctionObjects.so");
+    writeControl writeTime;
+    log true;
+  }
+
+  turbulenceFields1
+  {
+    type        turbulenceFields;
+    libs        ("libfieldFunctionObjects.so");
+    fields
+    (
+      R //Reynolds stress tensor
+      //k //Turbulent kinetic energy
+      nuEff
+      //devReff //Deviatoric stress tensor
+      epsilon //Turbulent kinetic energyu dissipation rate
+    );
+
+    executeControl  writeTime;
+    executeInterval -1;
+    writeControl    writeTime;
+    writeInterval   -1;
+
+  }
+  
+  fieldAverage
+      {
+          type            fieldAverage;
+          functionObjectLibs ("libfieldFunctionObjects.so");
+          enabled         true;
+          outputControl   outputTime;
+          fields
+          (
+              U
+              {
+                  mean        on;
+                  prime2Mean  on;
+                  base        time;
+              }
+          );
+
+          executeControl  writeTime;
+          executeInterval -1;
+          writeControl    writeTime;
+          writeInterval   -1;
+      }
+}
+;
+
+libs
+(
+    "libPIMLfieldFunctionObjects.so"
+);
+
+functions
+{
+    q1
+    {
+        type            q1;
+        writeControl    writeTime;
+    }
+
+    q2
+    {
+        type            q2;
+        writeControl    writeTime;
+    }
+
+  
+
+    q4
+    {
+        type            q4;
+        writeControl    writeTime;
+    }
+
+    q5
+    {
+        type            q5;
+        writeControl    writeTime;
+    }
+
+
+    q7
+    {
+        type            q7;
+        writeControl    writeTime;
+    }
+
+    q8
+    {
+        type            q8;
+        writeControl    writeTime;
+    }
+
+    q9
+    {
+        type            q9;
+        writeControl    writeTime;
+    }
+
+    q10
+    {
+        type            q10;
+        writeControl    writeTime;
+    }
+
+    R
+    {
+        type            turbulenceFields;
+        writeControl    writeTime;
+        fields          (R);
+    }
+
+    
+
+    
+
+    
+
+    
+}
+
+    /* q2
+    {
+        type            q2;
+        writeControl    writeTime;
+    }
+
+    q3
+    {
+        type            q3;
+        writeControl    writeTime;
+    }
+
+    q4
+    {
+        type            q4;
+        writeControl    writeTime;
+    }
+
+    q5
+    {
+        type            q5;
+        writeControl    writeTime;
+    }
+
+    q6
+    {
+        type            q6;
+        writeControl    writeTime;
+    }
+
+    q7
+    {
+        type            q7;
+        writeControl    writeTime;
+    }
+
+    q8
+    {
+        type            q8;
+        writeControl    writeTime;
+    }
+
+    q9
+    {
+        type            q9;
+        writeControl    writeTime;
+    }
+
+    q10
+    {
+        type            q10;
+        writeControl    writeTime;
+    }
+
+    R
+    {
+        type            turbulenceFields;
+        writeControl    writeTime;
+        fields          (R);
+    }  */
+
+    /* #includeFunc graphCell
+    (
+        funcName=graph,
+        start=(0 0 0),
+        end=(2 2 0),
+        fields=(q1 q2 q3 q5 q4 q6 q7 q8 q9 q10 U p k epsilon R)
+    ) */
+/* } */
+;
+
+
