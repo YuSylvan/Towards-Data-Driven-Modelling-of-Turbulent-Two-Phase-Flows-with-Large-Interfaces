@@ -385,10 +385,13 @@ event snapshots (t = writeTime; t <= endTime; t += writeTime)
     #endif
 }
 
-#define outputtime 0.1
+#define outputtime 0.02
 
-event output1 (t = outputtime; t <= endTime; t += outputtime)
+event output (t = outputtime; t <= endTime; t += outputtime)
+
 {
+  scalar omega[];
+  vorticity (u, omega);
   char filename[25] = {"./Line/X"};
   char timeindex[10];
   sprintf(timeindex,"%.3lf",t);
@@ -397,9 +400,7 @@ event output1 (t = outputtime; t <= endTime; t += outputtime)
   FILE * fp = fopen (filename, "w");
   static int nf = 0;
   printf ("file: field-%d\n", nf++);
-  output_field ({u,f,p}, fp, n = N, linear = true,box = {{0.,-0.0008},{L0,0.0008}});
-
-  
+  output_field ({u,f,p,omega }, fp, n = N, linear = true,box = {{0.,-0.05},{L0,0.05}});
 }
 
 event output2 (t = outputtime; t <= endTime; t += outputtime)
