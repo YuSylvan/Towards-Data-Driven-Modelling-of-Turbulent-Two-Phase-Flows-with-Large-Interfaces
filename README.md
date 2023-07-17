@@ -35,7 +35,7 @@ It is used for RANS simulation. Open the folder ':\Openfoam\twophaseopemfoam9'. 
 Postprocess folder
 ```bash
 It is used for data analysis.
-Four sections are included:
+Four parts are included:
 1. laminar Vx.ipynb. The results of the Laminar case are shown here. Open ':\laminar Vx.ipynb' for more details.
 2. Vis.ipynb. Visualization of the simulation results was presented. Open ':\Result Visualization\Vis.ipynb' for more details.
 3. Wave.ipynb. A gif file of the wave was generated here. Open ':\Wave.ipynb' for more details.
